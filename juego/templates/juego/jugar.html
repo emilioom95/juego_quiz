@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        main {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        p {
+            font-size: 1.25rem;
+            color: #333;
+        }
+        button {
+            padding: .8rem 1.5rem;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            margin-top: 1rem;
+            text-align: center;
+        }
+        .logout button {
+            background-color: #dc3545;
+        }
+        .logout button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Comienza a Jugar</h1>
+    </header>
+    <main>
+        <p>Puntos: {{ request.user.perfil.puntos }}</p> <!-- Muestra los puntos del usuario -->
+        <p>{{ pregunta.pregunta }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Enviar Respuesta</button>
+        </form>
+        <!-- {% if mensaje %}
+            <p style="color: red;">{{ mensaje }}</p>
+        {% endif %} -->
+    </main>
+    <div class="logout">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    </div>
+</body>
+</html>
